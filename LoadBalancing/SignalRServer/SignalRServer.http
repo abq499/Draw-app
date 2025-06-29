@@ -1,0 +1,6 @@
+@SignalRServer_HostAddress = http://127.0.0.1:5151
+
+GET {{SignalRServer_HostAddress}}/validate/
+Accept: application/json
+
+###
