@@ -22,8 +22,8 @@ namespace Dreaw
         HubConnection connection;
         SKBitmap btmap;
         bool is_join_a_room;
-        const string serverAdd = "https://d341-2402-800-6388-2a9c-4456-43d5-f-49e5.ngrok-free.app/api/hub"; //Địa chỉ Server
-        const string serverAPIAdd = "https://d341-2402-800-6388-2a9c-4456-43d5-f-49e5.ngrok-free.app";
+        const string serverAdd = "https://localhost:5001/hub"; //Địa chỉ Server
+        const string serverAPIAdd = "https://localhost:5001";
         const string serverIP = "127.0.0.1";
         List<userRoom> userRooms = new List<userRoom>();
         int selectedRoom = -1;
@@ -75,25 +75,16 @@ namespace Dreaw
                 if (selectedRoom == -1)
                 {
                     Cursor = Cursors.Default;
+                    is_join_a_room = false;
                     return;
                 }
+
                 var currentbmp = await GetBitmap(selectedRoom);
-                await ConnectServer(userID, selectedRoom, roomname, userID, usrrname);
-                DoAnPaint.Form1 drawingpanel;
+                SKBitmap crtbmp = null;
                 if (currentbmp != null)
-                {
-                    var imageData = Convert.FromBase64String(currentbmp);
-                    var crtbmp = SKBitmap.Decode(imageData);
-                    drawingpanel = new DoAnPaint.Form1(serverIP, selectedRoom, usrrname, crtbmp);
-                    is_join_a_room = false;
-                }
-                else
-                {
-                    drawingpanel = new DoAnPaint.Form1(serverIP, selectedRoom, usrrname);
-                    is_join_a_room = false;
-                }
-                drawingpanel.SetConn(connection);
-                drawingpanel.Show();
+                    crtbmp = SKBitmap.Decode(Convert.FromBase64String(currentbmp));
+
+                await TryConnectAndOpenRoom(selectedRoom, roomname, usrrname, crtbmp);
             }
             else
             {
@@ -101,6 +92,7 @@ namespace Dreaw
                 return;
             }
         }
+
 
         /// <summary>
         /// Kết nối tới server
@@ -151,14 +143,10 @@ namespace Dreaw
                 if (selectedRoom == -1)
                 {
                     Cursor = Cursors.Default;
+                    is_join_a_room = false;
                     return;
                 }
-                await ConnectServer(userID, selectedRoom, roomname, userID, usrrname);
-                DoAnPaint.Form1 drawingpanel = new DoAnPaint.Form1(serverIP, selectedRoom, usrrname);
-                drawingpanel.SetConn(connection);
-                drawingpanel.Show();
-                Cursor = Cursors.Default;
-                is_join_a_room = false;
+                await TryConnectAndOpenRoom(selectedRoom, roomname, usrrname);
             }
             else
             {
@@ -166,6 +154,7 @@ namespace Dreaw
                 return;
             }
         }
+
 
         //Join phòng
         private async void pictureBox5_Click(object sender, EventArgs e)
@@ -181,51 +170,24 @@ namespace Dreaw
                 {
                     using (var client = new HttpClient())
                     {
-                        var isInList = userRooms.Select(room => room.ID).ToList().Contains(selectedRoom);
-                        DoAnPaint.Form1 drawingpanel;
-                        if (isInList)
-                        {
-                            var currentbmp = await GetBitmap(selectedRoom);
-                            await ConnectServer(userID, selectedRoom, roomname, userID, usrrname);
-                            if (currentbmp != null)
-                            {
-                                var imageData = Convert.FromBase64String(currentbmp);
-                                var crtbmp = SKBitmap.Decode(imageData);
-                                drawingpanel = new DoAnPaint.Form1(serverIP, selectedRoom, usrrname, crtbmp);
-                                is_join_a_room = false;
-                            }
-                            else
-                            {
-                                drawingpanel = new DoAnPaint.Form1(serverIP, selectedRoom, usrrname);
-                                is_join_a_room = false;
-                            }
-                            drawingpanel.SetConn(connection);
-                            drawingpanel.Show();
-                        }  
-                        else
+                        var isInList = userRooms.Select(room => room.ID).Contains(selectedRoom);
+                        SKBitmap crtbmp = null;
+
+                        if (!isInList)
                         {
                             var content = new StringContent(selectedRoom.ToString(), Encoding.UTF8, "text/plain");
                             var response = await client.PostAsync($"{serverAPIAdd}/api/room/getname", content);
-                            if (response.IsSuccessStatusCode)
-                                roomname = await response.Content.ReadAsStringAsync();
-                            else roomname = "";
-                            var currentbmp = await GetBitmap(selectedRoom);
-                            await ConnectServer("", selectedRoom, roomname, userID, usrrname);
-                            if (currentbmp != null)
-                            {
-                                var imageData = Convert.FromBase64String(currentbmp);
-                                var crtbmp = SKBitmap.Decode(imageData);
-                                drawingpanel = new DoAnPaint.Form1(serverIP, selectedRoom, usrrname, crtbmp);
-                                is_join_a_room = false;
-                            }
-                            else
-                            {
-                                drawingpanel = new DoAnPaint.Form1(serverIP, selectedRoom, usrrname);
-                                is_join_a_room = false;
-                            }
-                            drawingpanel.SetConn(connection);
-                            drawingpanel.Show();
+                            roomname = response.IsSuccessStatusCode ? await response.Content.ReadAsStringAsync() : "";
                         }
+
+                        var currentbmp = await GetBitmap(selectedRoom);
+                        if (currentbmp != null)
+                        {
+                            var imageData = Convert.FromBase64String(currentbmp);
+                            crtbmp = SKBitmap.Decode(imageData);
+                        }
+
+                        await TryConnectAndOpenRoom(selectedRoom, roomname, usrrname, crtbmp);
                     }
                 }
                 else
@@ -233,9 +195,7 @@ namespace Dreaw
                     MessageBox.Show("Code not valid!");
                     Cursor = Cursors.Default;
                     is_join_a_room = false;
-                    return;
-                } 
-                    
+                }
             }
             else
             {
@@ -243,6 +203,7 @@ namespace Dreaw
                 return;
             }
         }
+
 
         private void pictureBox3_Click(object sender, EventArgs e)
         {
@@ -305,5 +266,38 @@ namespace Dreaw
                     return null;
             }
         }
+        private async Task<bool> TryConnectAndOpenRoom(int roomId, string roomName, string userName, SKBitmap bitmap = null)
+        {
+            try
+            {
+                await ConnectServer(userID, roomId, roomName, userID, userName);
+                if (connection == null || connection.State != HubConnectionState.Connected)
+                {
+                    MessageBox.Show("Không thể kết nối đến máy chủ.");
+                    return false;
+                }
+
+                DoAnPaint.Form1 drawingpanel;
+                if (bitmap != null)
+                    drawingpanel = new DoAnPaint.Form1(serverIP, roomId, userName, bitmap);
+                else
+                    drawingpanel = new DoAnPaint.Form1(serverIP, roomId, userName);
+
+                drawingpanel.SetConn(connection);
+                drawingpanel.Show();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi kết nối phòng: " + ex.Message);
+                return false;
+            }
+            finally
+            {
+                Cursor = Cursors.Default;
+                is_join_a_room = false;
+            }
+        }
+
     }
 }

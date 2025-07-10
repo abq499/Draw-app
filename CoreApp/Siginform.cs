@@ -16,7 +16,7 @@ namespace Dreaw
 {
     public partial class Siginform : Form
     {
-        const string serverAdd = "https://d341-2402-800-6388-2a9c-4456-43d5-f-49e5.ngrok-free.app"; //Địa chỉ server
+        const string serverAdd = "https://localhost:5001"; //Địa chỉ server
         bool isSending = false; //Cái isSending này giống nhau ở nhiều form, nên tui viết
         //1 lần thôi:D Nó tượng trưng cho việc đã gửi request lên server chưa(vì request cần thời 
         //gian để xử lý). Nếu nó là true, sẽ chặn việc gửi request đi tiếp
@@ -58,7 +58,9 @@ namespace Dreaw
             // Tạo dữ liệu cần gửi
             var requestData = new
             {
-                Email = email
+                Username = name,
+                Email = email,
+                Password = password
             };
             //Gửi request bằng HttpClient
             using (var client = new HttpClient())

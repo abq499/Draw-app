@@ -15,7 +15,7 @@ namespace Dreaw.WorldForm
     {
         public string name { get; set; }
         public string ID { get; set; }
-        const string serverAdd = "https://d341-2402-800-6388-2a9c-4456-43d5-f-49e5.ngrok-free.app";
+        const string serverAdd = "https://localhost:5001";
         public CreateRoom()
         {
             InitializeComponent();

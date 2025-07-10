@@ -1,0 +1,29 @@
+-- Tạo cơ sở dữ liệu
+CREATE DATABASE DreawDB;
+GO
+
+-- Chọn cơ sở dữ liệu
+USE DreawDB;
+GO
+
+-- Tạo bảng Users
+CREATE TABLE Users (
+    id INT IDENTITY(1,1) PRIMARY KEY, -- Cột tự tăng
+    userID UNIQUEIDENTIFIER UNIQUE NOT NULL,
+    name NVARCHAR(100),
+    password_hash NVARCHAR(MAX) NOT NULL,
+    email NVARCHAR(100)
+);
+GO
+
+-- Tạo bảng Rooms
+CREATE TABLE Rooms (
+    id INT IDENTITY(1,1) PRIMARY KEY, -- Cột tự tăng
+    roomID char(4) UNIQUE NOT NULL,
+    roomName NVARCHAR(20),
+    lastModified smalldatetime,
+    ownerID UNIQUEIDENTIFIER,
+    canvasData NVARCHAR(MAX),
+    FOREIGN KEY (ownerID) REFERENCES Users(userID) -- Ràng buộc khóa ngoại
+);
+GO

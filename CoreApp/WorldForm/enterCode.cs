@@ -15,7 +15,7 @@ namespace Dreaw.WorldForm
         private TextBox textBox1;
         private Button button1;
         int codee = 0;
-        const string serverAdd = "https://d341-2402-800-6388-2a9c-4456-43d5-f-49e5.ngrok-free.app";
+        const string serverAdd = "https://localhost:5001";
 
         private void InitializeComponent()
         {

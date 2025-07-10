@@ -33,7 +33,7 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.MapHub<DreawHub>("api/hub");
+app.MapHub<DreawHub>("/hub");
 
 app.MapReverseProxy();
 

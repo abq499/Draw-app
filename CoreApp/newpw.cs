@@ -16,7 +16,7 @@ namespace Dreaw
     public partial class newpw : Form
     {
         string email;
-        const string serverAdd = "https://d341-2402-800-6388-2a9c-4456-43d5-f-49e5.ngrok-free.app";
+        const string serverAdd = "https://localhost:5001";
         bool isSending;
         public newpw(string email)
         {
