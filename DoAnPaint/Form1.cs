@@ -61,7 +61,7 @@ namespace DoAnPaint
             -Khi màu đổi: Đổi màu trên UI
             -Khi Command đổi: Đổi Control đang được lựa chọn trên UI + Đổi cái Scroll chọn giá trị
             */
-            controls.AddRange(new Control[] { btnPen, btnCrayon, btnEraser, btnBezier, btnLine, btnRectangle, btnEllipse, btnPolygon, btnSelect, btnOCR, btnFill });
+            controls.AddRange(new Control[] { btnPen, btnCrayon, btnEraser, btnBezier, btnLine, btnRectangle, btnEllipse, btnPolygon, btnSelect, /*btnOCR,*/ btnFill });
             // Đăng ký sự kiện thay đổi màu
             ColorChanged += newColor => ptbColor.BackColor = GetColor(newColor);
 
@@ -102,8 +102,8 @@ namespace DoAnPaint
                     case Command.CURSOR:
                         btnSelect.BackColor = Color.PaleTurquoise;
                         break;
-                    case Command.OCR:
-                        btnOCR.BackColor = Color.PaleTurquoise;
+                    /*case Command.OCR:
+                        btnOCR.BackColor = Color.PaleTurquoise;*/
                         break;
                     case Command.FILL:
                         btnFill.BackColor = Color.PaleTurquoise;
@@ -301,7 +301,7 @@ namespace DoAnPaint
         }
 
         //Ma thuật đen(Đọc chữ)
-        private async void btnOCR_Click(object sender, EventArgs e)
+        /*private async void btnOCR_Click(object sender, EventArgs e)
         {
             setCursor(Cursorr.NONE);
             Cmd = Command.OCR;
@@ -353,7 +353,7 @@ namespace DoAnPaint
             isPainting = false;
             Cmd = Command.CURSOR;
             selected = SKRect.Empty;
-        }
+        } */
 
         //Sự kiện ấn chuột xuống
         private void ptbDrawing_MouseDown(object sender, MouseEventArgs e)

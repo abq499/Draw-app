@@ -28,25 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            //moi them
-            // Nút Read Text đã có sẵn — gán sự kiện cho nó
-            //this.btnReadText.Click += new System.EventHandler(this.btnReadText_Click);
-            //this.pictureBox1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseClick);
-
-            
-            
-
-            
-            // khuc tren moi them
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnSelect = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.pictureBox21 = new System.Windows.Forms.PictureBox();
-            this.label4 = new System.Windows.Forms.Label();
             this.btnClear = new System.Windows.Forms.Button();
-            this.btnOCR = new System.Windows.Forms.PictureBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.btnSave = new System.Windows.Forms.Button();
@@ -103,7 +91,6 @@
             this.ptbDrawing = new SkiaSharp.Views.Desktop.SKControl();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox21)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnOCR)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ptbEditColor)).BeginInit();
             this.panel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox11)).BeginInit();
@@ -140,9 +127,7 @@
             this.panel1.Controls.Add(this.btnSelect);
             this.panel1.Controls.Add(this.label5);
             this.panel1.Controls.Add(this.pictureBox21);
-            this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.btnClear);
-            this.panel1.Controls.Add(this.btnOCR);
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.btnSave);
@@ -182,7 +167,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Segoe UI Light", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(1654, 91);
+            this.label5.Location = new System.Drawing.Point(1602, 91);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(51, 28);
@@ -195,7 +180,7 @@
             this.pictureBox21.BackgroundImage = global::DoAnPaint.Properties.Resources.save;
             this.pictureBox21.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.pictureBox21.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureBox21.Location = new System.Drawing.Point(1647, 15);
+            this.pictureBox21.Location = new System.Drawing.Point(1595, 15);
             this.pictureBox21.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox21.Name = "pictureBox21";
             this.pictureBox21.Size = new System.Drawing.Size(67, 62);
@@ -203,17 +188,6 @@
             this.pictureBox21.TabStop = false;
             this.Tips.SetToolTip(this.pictureBox21, "Save to database");
             this.pictureBox21.Click += new System.EventHandler(this.pictureBox21_Click);
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Segoe UI Light", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(1509, 91);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(89, 28);
-            this.label4.TabIndex = 21;
-            this.label4.Text = "Read text";
             // 
             // btnClear
             // 
@@ -229,26 +203,11 @@
             this.btnClear.UseVisualStyleBackColor = false;
             this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
-            // btnOCR
-            // 
-            this.btnOCR.BackColor = System.Drawing.Color.Transparent;
-            this.btnOCR.BackgroundImage = global::DoAnPaint.Properties.Resources.ic_read;
-            this.btnOCR.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnOCR.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnOCR.Location = new System.Drawing.Point(1519, 15);
-            this.btnOCR.Margin = new System.Windows.Forms.Padding(4);
-            this.btnOCR.Name = "btnOCR";
-            this.btnOCR.Size = new System.Drawing.Size(67, 62);
-            this.btnOCR.TabIndex = 20;
-            this.btnOCR.TabStop = false;
-            this.Tips.SetToolTip(this.btnOCR, "Select your handwriting text, then see the magic;))");
-            this.btnOCR.Click += new System.EventHandler(this.btnOCR_Click);
-            // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Segoe UI Light", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(1368, 91);
+            this.label3.Location = new System.Drawing.Point(1389, 91);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(109, 28);
@@ -286,7 +245,7 @@
             this.ptbEditColor.BackgroundImage = global::DoAnPaint.Properties.Resources.ic_edit_color;
             this.ptbEditColor.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.ptbEditColor.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.ptbEditColor.Location = new System.Drawing.Point(1387, 15);
+            this.ptbEditColor.Location = new System.Drawing.Point(1410, 15);
             this.ptbEditColor.Margin = new System.Windows.Forms.Padding(4);
             this.ptbEditColor.Name = "ptbEditColor";
             this.ptbEditColor.Size = new System.Drawing.Size(67, 62);
@@ -979,7 +938,6 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox21)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnOCR)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ptbEditColor)).EndInit();
             this.panel5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox11)).EndInit();
@@ -1057,8 +1015,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnClear;
         private System.Windows.Forms.Button btnSave;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.PictureBox btnOCR;
+        //private System.Windows.Forms.PictureBox btnOCR;
         private System.Windows.Forms.ToolTip Tips;
         private System.Windows.Forms.Label lbLocation;
         private System.Windows.Forms.PictureBox pictureBox33;
