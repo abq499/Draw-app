@@ -11,7 +11,7 @@ Draw together. Dream together.
 
 ### Yêu cầu hệ thống:
 - .NET Framework 4.8
-- Python 3.12 (đúng phiên bản này)
+- Python 3.12 
 - Microsoft SQL Server 2022
 - Redis
 
@@ -19,9 +19,7 @@ Draw together. Dream together.
 ### 1. Clone repository về máy
 Sao chép repository từ GitHub về máy cục bộ:
 ```bash
-git clone https://github.com/Hac1es/NT106-DoAn.git
-cd NT106-DoAn
-```
+
 
 ### 2. Cài đặt dependencies cho Python
 Dự án sử dụng các thư viện Python được liệt kê trong tệp requirements.txt. Chạy lệnh sau để cài đặt:
@@ -33,7 +31,7 @@ pip install -r requirements.txt
 Sử dụng nội dung trong tệp Database.txt và Microsoft SQL Server Management Studio (SSMS) để tạo cơ sở dữ liệu cần thiết.
 
 ### 4. Sửa địa chỉ server
-Tìm trong CoreApp & DrawingForm dòng "https://b7d5-2402-800-6388-19ab-19cd-c82b-cd24-46af.ngrok-free.app" và sửa thành "https://localhost:7002" (nơi Load Balancer chạy)
+Tìm trong CoreApp & DrawingForm dòng "https://localhost:7002" (nơi Load Balancer chạy)
 
 ### 5. Thứ tự khởi chạy dự án
 #### Bật Redis
